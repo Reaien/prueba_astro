@@ -1,5 +1,36 @@
 ---
+import "../styles/global.css";
 
+const pageTitle = "Sobre mi";
+
+//objeto para ser accedido
+const identity = {
+  firstName: "Andy",
+  country: "Chile",
+  occupation: "Ingenierio Informático",
+  hobbies: ["Patinar", "Jugar VideoJuegos", "Pasar tiempo con mi osa"],
+};
+
+//array para iterar con map
+const skills = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "React",
+  "Astro",
+  "Django",
+  "AWS EC2",
+];
+
+//tipos de datos para evaluar en condicional
+const happy = true;
+const finished = false;
+const goal = 3;
+
+// variableCSS
+const skillColor = "navy";
+const fontWeight = "bold";
+const textCase = "uppercase";
 ---
 
 <html lang="en">
@@ -8,14 +39,26 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Mi sitio Astro</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <a href="/">Inicio</a>
     <a href="/about/">Sobre mi</a>
     <a href="/blog/">Mi Blog</a>
 
-    <h1>Sobre mi</h1>
+    <h1>{pageTitle}</h1>
+    <style define:vars={{ skillColor, fontWeight, textCase }}>
+      h1 {
+        color: purple;
+        font-size: 4rem;
+      }
+      .skill {
+        color: var(--skillColor);
+        font-weight: var(--fontWeight);
+        text-transform: var(--textCase);
+      }
+    </style>
+
     <h2>...¡y mi nuevo sitio Astro!</h2>
 
     <p>
@@ -27,5 +70,49 @@
       Este sitio se irá actualizando a medida que vaya completando más partes
       del tutorial, ¡así que no dejes de visitarlo para ver cómo va mi viaje!
     </p>
+
+    <h3>Aquí hay algunos datos sobre mi</h3>
+
+    <ul>
+      <li>Me llamo: {identity.firstName}</li>
+      <li>
+        Vivo en: {identity.country} y estudio la carrera de {
+          identity.occupation
+        }
+      </li>
+      {
+        identity.hobbies.length >= 2 && (
+          <li>
+            Dos de mis aficiones son: {identity.hobbies[0]} y{" "}
+            {identity.hobbies[1]}
+          </li>
+        )
+      }
+    </ul>
+    <h4>Mis habilidades son:</h4>
+    <ul>{skills.map((skill) => <li class="skill">{skill}</li>)}</ul>
+
+    {
+      happy && (
+        <p>
+          Estoy feliz por aprender Astro, aparte estoy aprendiendo mas sobre JS
+          !
+        </p>
+      )
+    }
+
+    {
+      finished && (
+        <p>He terminado este tutorial, esto no deberia salir no? o.o</p>
+      )
+    }
+
+    {
+      goal === 3 ? (
+        <p>Esto se ejecutará si es 3</p>
+      ) : (
+        <p> Esto se ejecutará si no es 3, osea el else no?</p>
+      )
+    }
   </body>
 </html>
